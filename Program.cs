@@ -1,35 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ErrorHandlingApplication
+namespace AgeExceptionHandler
 {
-    class DivNumbers
+    class ProgramException
     {
-        int result;
-
-        DivNumbers()
-        {
-            result = 0;
-        }
-        public void division(int num1, int num2)
+        static void Main(string[] args)
         {
             try
             {
-                result = num1 / num2;
+                int result = CheckAge();
+                Console.WriteLine(result);
+                Console.ReadLine();
             }
-            catch (DivideByZeroException e)
+            catch (CustomAge Age1)
             {
-                Console.WriteLine("Exception caught: {0}", e);
+
+                Console.WriteLine(Age1.Message);
             }
-            finally
-            {
-                Console.WriteLine("Result: {0}", result);
-            }
+
+
         }
-        static void Main(string[] args)
+        static int CheckAge()
         {
-            DivNumbers d = new DivNumbers();
-            d.division(25, 0);
-            Console.ReadKey();
+            Console.WriteLine("Enter age :");
+            int age = Convert.ToInt32(Console.ReadLine());
+            if (age < 18)
+            {
+                throw new Exception("Age should be more than 18");
+            }
+            return age;
+        }
+
+    }
+    public class CustomAge : Exception
+    {
+        public CustomAge(string message) : base(message)
+        {
+
         }
     }
 }
+
