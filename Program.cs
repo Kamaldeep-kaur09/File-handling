@@ -1,44 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
-class Program
+namespace ErrorHandlingApplication
 {
-    static void Main()
+    class DivNumbers
     {
-        string data = File.ReadAllText(@"E:\data.txt ");
-        Console.Write(data);
-        int vowelCount = 0;
-        int consonantCount = 0;
-        int integerCount = 0;
-        int specialCharacter = 0;
-        //int i = 0;
-        data.Replace("MARK", "SIGN");
+        int result;
+
+        DivNumbers()
         {
-            Console.WriteLine(data);
+            result = 0;
         }
-
-        string s1 = data.ToLower();
-        foreach (char temp in s1)
+        public void division(int num1, int num2)
         {
-            if (temp == 'a' || temp == 'e' || temp == 'i' || temp == 'o' || temp == 'u')
-                vowelCount++;
-            else if (temp >= 'b' && temp <= 'z')
-                consonantCount++;
-            else if (temp >= '0' && temp <= '9')
-                integerCount++;
-            else
-                specialCharacter++;
+            try
+            {
+                result = num1 / num2;
+            }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("Exception caught: {0}", e);
+            }
+            finally
+            {
+                Console.WriteLine("Result: {0}", result);
+            }
         }
-        Console.WriteLine("Total number of vowel are : " + vowelCount);
-        Console.WriteLine("Total number of consonant are : " + consonantCount);
-        Console.WriteLine("Total numbers of integers are : " + integerCount);
-        Console.WriteLine("Total numbers of special characters are : " + specialCharacter);
-
-        //File.Copy(@"E:\data.txt", @"E:\data4.txt");
-
+        static void Main(string[] args)
+        {
+            DivNumbers d = new DivNumbers();
+            d.division(25, 0);
+            Console.ReadKey();
+        }
     }
 }
